@@ -5,7 +5,7 @@
 <h3>Order Form</h3>
 
 <form onsubmit="return printReceipt()">
-  <label for="fullname">Full Name:</label><br>
+  <label for="fullname"> Full Name:</label><br>
   <input type="text" id="fullname" name="fullname" required><br>
 
   <label for="grion">Grade and Section:</label><br>
@@ -22,7 +22,7 @@
 
   <select name="ctype" id="ctype">
     <option value="st">Student</option>
-    <option value="fs">Faculty/Staff</option>
+    <option value="fs"> Faculty/Staff</option>
   </select> <br><br>
 
   <input type="submit" value="Place Order">
@@ -91,7 +91,7 @@ function printReceipt() {
   // Finally, display final output
   document.getElementById("output").innerHTML =
     "Name: " + name + "<br>" +
-    "Grade & Section: " + grade + "<br><br>" +
+    "Grade & Section: " + grade + "<br>" +
 
     "Order: " + orderName + "<br>" +
     "Quantity: " + qty + "<br>" +
