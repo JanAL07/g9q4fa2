@@ -34,14 +34,13 @@
 <script>
 function printReceipt() {
 
-  // Get the values from form (full name, grade, section, order, quantity, class type)
   let name = document.getElementById("fullname").value;
   let grade = document.getElementById("grion").value;
   let order = document.getElementById("order").value;
   let qty = document.getElementById("quantity").value;
   let type = document.getElementById("ctype").value;
 
-  // Get and calculate subtotal using function + switch
+  // Add function and use switch inside to find price of order
   function calculateSubtotal(order, quantity) {
     let price = 0;
 
@@ -62,28 +61,48 @@ function printReceipt() {
     return price * quantity;
   }
 
-  // Get and calculate discount using function + if
+  // Add function and use if inside to see discount :3
   function calculateDiscount(total, custType) {
     if (custType == "st") {
-      return total * 0.20; // 20% discount
+      return total * 0.20;
     }
     return 0;
   }
 
+  // Assign
   let subtotal = calculateSubtotal(order, qty);
   let discount = calculateDiscount(subtotal, type);
   let total = subtotal - discount;
 
-  // Show basically the final output I guess
+  // Find out what the customer basically ordered using switch
+  let orderName = "";
+  switch(order) {
+    case "1":
+      orderName = "Chicken Meal (PHP 75)";
+      break;
+    case "2":
+      orderName = "Pork Meal (PHP 85)";
+      break;
+    case "3":
+      orderName = "Beef Meal (PHP 105)";
+      break;
+  }
+
+  // Finally, display final output
   document.getElementById("output").innerHTML =
     "Name: " + name + "<br>" +
-    "Grade & Section: " + grade + "<br>" +
+    "Grade & Section: " + grade + "<br><br>" +
+
+    "Order: " + orderName + "<br>" +
+    "Quantity: " + qty + "<br><br>" +
+
     "Subtotal: PHP " + subtotal + "<br>" +
     "Discount: PHP " + discount + "<br>" +
-    "Total: PHP " + total;
+    "Total: PHP " + total + "<br><br>" +
 
-// Stop the page from reloading
-  return false; 
+    "Thank you for your patronage!";
+
+  return false;
 }
 </script>
 
