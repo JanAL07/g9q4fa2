@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h3>Order Form</h3>
+
+<form onsubmit="return printReceipt()">
+  <label for="fullname">Full Name:</label><br>
+  <input type="text" id="fullname" name="fullname" required><br>
+
+  <label for="grion">Grade and Section:</label><br>
+  <input type="text" id="grion" name="grion" required><br><br>
+
+  <select name="order" id="order">
+    <option value="1">Chicken meal (PHP 75)</option>
+    <option value="2">Pork meal (PHP 85)</option>
+    <option value="3">Beef meal (PHP 105)</option>
+  </select> <br>
+
+  <label for="quantity">Quantity (Max of 5):</label>
+  <input type="number" id="quantity" name="quantity" min="1" max="5" required><br><br>
+
+  <select name="ctype" id="ctype">
+    <option value="st">Student</option>
+    <option value="fs">Faculty/Staff</option>
+  </select> <br><br>
+
+  <input type="submit" value="Place Order">
+</form>
+
+<h4>ORDER SUMMARY</h4>
+<p id="output"></p>
+
+<script>
+function printReceipt() {
+
+  // Get the values from form (full name, grade, section, order, quantity, class type)
+  let name = document.getElementById("fullname").value;
+  let grade = document.getElementById("grion").value;
+  let order = document.getElementById("order").value;
+  let qty = document.getElementById("quantity").value;
+  let type = document.getElementById("ctype").value;
+
+  // Get and calculate subtotal using function + switch
+  function calculateSubtotal(order, quantity) {
+    let price = 0;
+
+    switch(order) {
+      case "1":
+        price = 75;
+        break;
+      case "2":
+        price = 85;
+        break;
+      case "3":
+        price = 105;
+        break;
+      default:
+        return "Item not found";
+    }
+
+    return price * quantity;
+  }
+
+  // Get and calculate discount using function + if
+  function calculateDiscount(total, custType) {
+    if (custType == "st") {
+      return total * 0.20; // 20% discount
+    }
+    return 0;
+  }
+
+  let subtotal = calculateSubtotal(order, qty);
+  let discount = calculateDiscount(subtotal, type);
+  let total = subtotal - discount;
+
+  // Show basically the final output I guess
+  document.getElementById("output").innerHTML =
+    "Name: " + name + "<br>" +
+    "Grade & Section: " + grade + "<br>" +
+    "Subtotal: PHP " + subtotal + "<br>" +
+    "Discount: PHP " + discount + "<br>" +
+    "Total: PHP " + total;
+
+// Stop the page from reloading
+  return false; 
+}
+</script>
+
+</body>
+</html>
